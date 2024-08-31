@@ -48,9 +48,3 @@ Have basic html ui showing the chat log using UL and single input box with send 
 When I type a message in send message, call /send POST api to send message to backend. The chat room is updated with new message.
 All client browsers have an api called /poll that check if chat room on redis is updated. If updated, it will return 200 and frontend
 need to call GET /chat/all to pull all the messages in chat room which you will update the UL. Have a button called save where it will save the current chat room chat messages to database table chat with fields (id, create_at, chat_messages).
-
-Stripe key:
-
-pk_test_51IWQUwH8oljXErmdg6L4MhsuB6tDdmumlHFfyNaopty2U27pmRcqMX1c868zn838lGQtU1eYV6bKRSQtMFWf36VT00aNsvnTOE
-
-sk_test_51IWQUwH8oljXErmds28KftkL6o6jYIcPgYbBdfEmCPSuAlIh0fgoS4NADcCmsIZbdQ3p5nbAeCOcGkSmo38U9BIe00BdOenrqo
