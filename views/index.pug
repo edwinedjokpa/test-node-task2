@@ -1,0 +1,101 @@
+extends layout
+
+block content
+  .modal.fade#twoFactorModal(tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true")
+    .modal-dialog(role="document")
+      .modal-content.text-center
+        .modal-header
+          h5.modal-title#exampleModalLabel Two-Factor Authentication
+          button.close(type="button" data-dismiss="modal" aria-label="Close")
+            span(aria-hidden="true") &times;
+        .modal-body
+          #qr-code-container
+          .form-group
+            label(for="token") Enter 2FA Token
+            input#token.form-control(type="text" placeholder="Enter token")
+        .modal-footer
+          button#verify-2fa.btn.btn-primary(type="button") Verify
+  .container-fluid.p-.m-4
+    .row
+      .col-md-3(data-widget-name="weather-widget")
+        .card.text-center
+          img#weather-image.card-img-top.img-fluid.mt-4(src='', alt='Weather Image')
+          .card-body
+            h2#temperature.card-title -- °C
+      .col-md-3(data-widget-name="airport-widget")
+        .card.text-center
+          .card-body
+            h4.card-title Search for an Airport
+            .form-group
+              input#airport-input.form-control(type="text" placeholder="Start typing to search...")
+              .dropdown-menu#dropdown-menu(aria-labelledby="airport-input")
+      .col-md-3(data-widget-name="nigeria-time--widget")
+        .card.text-center
+          .card-body
+            h4.card-title Nigeria Time
+            h2#nigeria-time.card-text -- : -- : --
+      .col-md-3(data-widget-name="london-time-widget")
+        .card.text-center
+          .card-body
+            h4.card-title London Time
+            h2#london-time.card-text -- : -- : --
+    .row
+      .col-md-3(data-widget-name="number-clicks-widget")
+        .card.text-center
+          .card-body
+            h4.card-title Number of Clicks
+            h2#click-count.card-text 0
+      .col-md-3(data-widget-name="map-widget")
+        .card
+          .card-body
+            #map
+      .col-md-3(data-widget-name="pakistan-time-widget")
+        .card.text-center
+          .card-body
+            h4.card-title Pakistan Time
+            h2#pakistan-time.card-text -- : -- : --
+      .col-md-3(data-widget-name="est-time-widget")
+        .card.text-center
+          .card-body
+            h4.card-title EST Time
+            h2#est-time.card-text -- : -- : -
+    .row
+      .col-md-3(data-widget-name="export-xml-widget")
+        .card.text-center
+          .card-body
+            h5.card-title Export XML
+            button#export-xml-button.btn.btn-flat Export
+      .col-md-3(data-widget-name="distance-widget")
+        .card.text-center
+          .card-body
+            h4.card-title Distance from Arctic Circle
+            h2#distance.card-text ---.-
+      .col-md-3(data-widget-name="reddit-widget")
+          .card
+            .card-body
+              ul#reddit-posts.list-group
+      .col-md-3(data-widget-name="count-widget")
+        .card.text-center
+          .card-body
+            h4.card-title Count # of coins
+            .form-group
+              input#amount-input.form-control(type="number" step="0.01" placeholder="Enter amount (e.g. 57.23)")
+              button#calculate-button.btn.btn-flat.mt-3 Calculate
+              .mt-3
+              ul#result-list.list-group.text.align.left
+    .row
+      .col-md-3
+      .col-md-3 
+      .col-md-3
+      .col-md-3.justify-content-right(data-widget-name="upload-widget")
+        .card.text-center
+          .card-body
+            .upload-widget
+              img#latest-image.img-fluid(src='', alt='No image uploaded yet')
+              button#upload-button.btn.btn-flat Upload
+              input#file-input(type="file", accept="image/*", style="display: none;")
+              .mt-3
+
+            script.
+              window.isAuthenticated = #{isAuthenticated};
+            script(src='/js/scripts.js')

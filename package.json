@@ -1,0 +1,35 @@
+{
+  "name": "node-task-2a",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "commit": "git add . && git commit -m \"Update Project purpose\" && git push"
+  },
+  "dependencies": {
+    "axios": "^1.7.6",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "~1.4.4",
+    "csv-parser": "^3.0.0",
+    "debug": "~2.6.9",
+    "dotenv": "^16.4.5",
+    "express": "~4.16.1",
+    "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0",
+    "http-errors": "~1.6.3",
+    "mariadb": "^3.0.1",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^2.3.3",
+    "ol": "^7.1.0",
+    "pug": "^3.0.2",
+    "qrcode": "^1.5.4",
+    "redis": "^4.7.0",
+    "sequelize": "^6.37.3",
+    "socket.io": "^4.7.5",
+    "speakeasy": "^2.0.0",
+    "xml-js": "^1.6.11",
+    "xml2js": "^0.6.2"
+  }
+}
