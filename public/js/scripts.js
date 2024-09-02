@@ -42,37 +42,35 @@ async function updateClocks() {
     const data = await response.json();
     const utcTime = new Date(data.utcTime);
 
-    // London (UTC+1 in BST, UTC+0 in GMT)
-    const londonTime = new Date(
-      utcTime.toLocaleString("en-US", {
-        timeZone: "Europe/London",
-      })
-    );
-    document.getElementById("london-time").textContent =
-      londonTime.toLocaleTimeString();
+    // Define time zones and their display IDs
+    const timeZones = {
+      "london-time": "Europe/London",
+      "est-time": "America/New_York",
+      "nigeria-time": "Africa/Lagos",
+      "pakistan-time": "Asia/Karachi",
+    };
 
-    // EST (UTC-5, or UTC-4 in daylight saving time)
-    const estTime = new Date(
-      utcTime.toLocaleString("en-US", { timeZone: "America/New_York" })
-    );
-    document.getElementById("est-time").textContent =
-      estTime.toLocaleTimeString();
+    // Update each clock
+    for (const [id, timeZone] of Object.entries(timeZones)) {
+      const localTime = new Intl.DateTimeFormat("en-US", {
+        timeZone: timeZone,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false, // Use 24-hour format
+      }).format(utcTime);
 
-    // Nigeria (UTC+1)
-    const nigeriaTime = new Date(
-      utcTime.toLocaleString("en-US", { timeZone: "Africa/Lagos" })
-    );
-    document.getElementById("nigeria-time").textContent =
-      nigeriaTime.toLocaleTimeString();
-
-    // Pakistan (UTC+5)
-    const pakistanTime = new Date(
-      utcTime.toLocaleString("en-US", { timeZone: "Asia/Karachi" })
-    );
-    document.getElementById("pakistan-time").textContent =
-      pakistanTime.toLocaleTimeString();
+      updateClockElement(id, localTime);
+    }
   } catch (error) {
     console.error("Error fetching time:", error);
+  }
+}
+
+function updateClockElement(id, time) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.textContent = time;
   }
 }
 

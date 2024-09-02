@@ -36,6 +36,11 @@ a {
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+.modal-dialog {
+  max-width: 60%;
+  margin: 1.75rem auto;
+}
+
 .btn-flat:hover {
   background-color: #0056b3;
 }
@@ -44,12 +49,8 @@ a {
   outline: none;
 }
 
-.card h4 {
-  font-weight: bold;
-}
-
 .card h2 {
-  font-size: 2rem;
+  font-size: 3rem;
 }
 
 #weather-image {

@@ -130,7 +130,7 @@ router.get("/api/weather", async (req, res) => {
 
   // const { city } = ipResponse.data;
 
-  const city = "Asaba";
+  const city = "Liverpool";
   const url = `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${city}&aqi=no`;
 
   try {
