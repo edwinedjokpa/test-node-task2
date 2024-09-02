@@ -114,23 +114,23 @@ router.get("/", function (req, res, next) {
 const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 
 router.get("/api/weather", async (req, res) => {
-  // let ipAddress = req.headers["x-forwarded-for"] || "102.89.32.134";
+  const ipAddress = req.headers["x-forwarded-for"] || "84.17.50.168";
 
-  // if (Array.isArray(ipAddress)) {
-  //   ipAddress = ipAddress[0];
-  // }
+  if (Array.isArray(ipAddress)) {
+    ipAddress = ipAddress[0];
+  }
 
-  // console.log(ipAddress);
-  // if (!ipAddress) {
-  //   return res.status(400).send("IP address not found");
-  // }
+  if (!ipAddress) {
+    return res.status(400).send("IP address not found");
+  }
 
-  // const ipResponse = await axios.get(`https://ipinfo.io/${ipAddress}`);
-  // console.log(ipResponse);
+  const ipResponse = await axios.get(`https://ipinfo.io/${ipAddress}`);
+  console.log(ipResponse);
 
-  // const { city } = ipResponse.data;
+  const { city } = ipResponse.data;
 
-  const city = "Liverpool";
+  console.log(city);
+
   const url = `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${city}&aqi=no`;
 
   try {
