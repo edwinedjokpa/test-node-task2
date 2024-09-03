@@ -227,6 +227,8 @@ async function calculateCoins(req, res) {
 }
 
 async function uploadImage(req, res) {
+  let filePath;
+
   try {
     if (!req.file) {
       return res
@@ -235,28 +237,32 @@ async function uploadImage(req, res) {
     }
 
     const file = req.file;
+    filePath = file.path;
 
     const allowedMimeTypes = ["image/jpeg", "image/png", "image/gif"];
     if (!allowedMimeTypes.includes(file.mimetype)) {
-      deleteFileIfExists(req.file.path);
+      await deleteFileIfExists(filePath);
       return res
         .status(400)
         .json({ success: false, error: "Invalid file type" });
     }
 
-    const imagePath = `/uploads/${req.file.filename}`;
+    const imagePath = `/uploads/${file.filename}`;
 
     const image = await db.Image.create({ image_path: imagePath });
 
     if (!image) {
-      deleteFileIfExists(req.file.path);
+      await deleteFileIfExists(filePath);
       throw new Error("Failed to save image information to the database");
     }
 
+    await deleteFileIfExists(filePath);
+
     res.json({ success: true, image_path: imagePath });
   } catch (error) {
-    console.error("Error uploading image:", error);
-    deleteFileIfExists(req.file.path);
+    if (filePath) {
+      await deleteFileIfExists(filePath);
+    }
     res.status(500).json({ success: false, error: error.message });
   }
 }
