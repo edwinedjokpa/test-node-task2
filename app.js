@@ -7,7 +7,9 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const http = require("http");
 const socketIO = require("socket.io");
-const setupSocketIO = require("./socket");
+const cors = require("cors");
+const setupSocketIO = require("./helpers/socket");
+const db = require("./models/index");
 
 const app = express();
 const server = http.createServer(app);
@@ -40,6 +42,14 @@ app.use(
   })
 );
 
+const corsOptions = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
@@ -58,6 +68,20 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+// Test the database connection and sync models
+async function initializeDatabase() {
+  try {
+    await db.sequelize.authenticate();
+    console.log("Database connected...");
+    // Sync all models
+    await db.sequelize.sync({ alter: true, logging: false });
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+initializeDatabase();
 
 // Start the server
 server.listen(3000, () => {

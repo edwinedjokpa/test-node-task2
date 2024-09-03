@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.status === 200) {
         const messagesResponse = await fetch("/chat/all");
         if (messagesResponse.ok) {
-          const messages = await messagesResponse.json();
+          const { messages } = await messagesResponse.json();
           updateChatLog(messages);
         }
       } else if (response.status === 204) {
@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Chat messages saved successfully.");
       } else {
         const result = await response.json();
+        console.log(result);
         alert(result.message || "Failed to save chat messages.");
       }
     } catch (error) {
